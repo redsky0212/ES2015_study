@@ -2,7 +2,7 @@
   -- 전제조건
     (
         pc에 git설치(client) (http://git-scm.com/download/win)-window용
-        github(server)필요 (자체구축, github.com(hyun0238@gmail.com, jeo****69), Bitbucket 등)
+        github(server)필요 (자체구축, github.com(h***8@gmail.com, j***9), Bitbucket 등)
     )
 
  1. local PC에 아무곳이나 작업폴더 생성하여 git저장소로 사용할 공간을 만든다.
