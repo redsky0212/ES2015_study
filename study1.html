@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="uft-8" />
+        <title>실습1</title>
+    </head>
+    <body>
+
+        <ul>
+            <li>apple</li>
+            <li>orange</li>
+            <li>banana</li>
+            <li>strawberry</li>
+        </ul>
+        <script>
+function ready(){
+    let list = document.querySelectorAll('li');
+    list = Array.from(list);    // NodeList를 Array 로 변경.
+    
+    // from으로 Array로 변환했기때문에 filter를 쓸 수 있음.
+    let newArr = list.filter(function( val ){
+        return val.textContent.includes('e');   // text에 'e'가 포함된 node만 return한다.
+    });
+
+    console.log(newArr);
+}
+
+document.addEventListener("DOMContentLoaded", ready);
+        </script>
+    </body>
+</html>
