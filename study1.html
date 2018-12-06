@@ -23,7 +23,52 @@ function ready(){
     });
 
     console.log(newArr);
+
+    // 간단한 object사용법
+    let obj = {
+        list
+        ,bbb(){ return 'cc'; }
+        ,newArr
+    }
+    console.log(obj);
+
+    // destructuring 배열에서 사용법
+    let data = [1,2,3,4,5,6,7];
+    let [first,,,fourth] = data;
+    console.log(first,fourth);
 }
+
+//  기본형태의 Class사용법--------------------------------
+function Area(h,w){
+    this.h = h;
+    this.w = w;
+}
+Area.prototype.getArea = function(){
+    return this.h * this.w;
+};
+
+let myArea = new Area(10, 20);
+console.log(myArea.getArea());
+console.log(myArea.h);
+//-------------------------------------------------------------
+
+// WeakMap을 활용하여 Class안의 변수를 private하게 함----------------
+const wm = new WeakMap();
+
+function Area2(h,w){
+    wm.set(this, {h,w}); // h,w를 전역 wm에 this키로 숨겨놓음.
+}
+Area2.prototype.getArea = function(){
+    let {h, w} = wm.get(this);
+    return h*w;
+};
+
+let myArea2 = new Area2(10, 20);
+console.log(myArea2.getArea());
+console.log(myArea2.h); // 당연히 없음.
+//------------------------------------------------------------------
+
+
 
 document.addEventListener("DOMContentLoaded", ready);
         </script>

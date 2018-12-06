@@ -47,4 +47,125 @@
  - 배열형태이지만 배열이 아닌 값.. (예 : arguments)을 배열로 만들어주는 메서드.
    let newArr = Array.from(arguments);
 
-* Array의 filter, from 메서드와 String의 includes메서드를 이용한 실습.
+* 실습1 - Array의 filter, from 메서드와 String의 includes메서드를 이용한 실습.
+
+* object 간단히 생성하기.
+ - object선언시 key와value가 같은 text이면 하나만 명시하면 됨.
+   let obj = {
+        list
+        ,bbb(){ return 'cc'; }
+        ,newArr
+    }
+
+* Destructuring Array에서 사용하기
+ - 값 배열에서 특정 index의 값을 뽑아 변수에 저장할때 유용한 사용법
+   let data = [1,2,3,4,5,6,7];
+   let [first,,,fourth] = data;
+
+* Destructuring Object에서 사용하기
+ - object에서 값 뽑아올때 간단히 가져올 수 있음.
+  let obj = {
+    name : 'crong'
+    ,address : 'Korea'
+    ,age : 10
+  };
+  let {name, age} = obj;  // 그냥 할당.
+  let {name:myName, age:myAge} = obj; // 키이름을 변경하여 할당.
+
+* Destructuring 활용 JSON파싱.
+ - array와 object를 혼용해서 값을 뽑을 수 있다.
+   let [, {aaa, bbb}] = json;
+   console.log(aaa, bbb);
+
+* Destructuring 활용 Event객체 전달.
+ - 이벤트 함수 설정시 event argument를 특정값만 받을 수 있음.
+   document.querySelector('div').addEventListener('click', function( {target} ){  }); // event객체에서 target만 뽑은예제.
+
+
+* Set 을 이용한 유니크한 배열 만들기 (배열과 유사한 형태의 객체)
+ - new로 사용함 (let aa = new Set();)
+ - 중복없이 유일한 값을 저장하려고 할때. 이미 존재하는지 체크할때 유용함. 중복값을 add할때는 들어가지 않음.
+ - let _s = new Set();
+   _s.add(), _s.has(), _s.forEach(), _s.delete() 등의 메서드가 있음. 
+
+* WeakSet 으로 효과적인 객체타입저장.
+ - new로 사용함 (let aa = new WeakSet();)
+ - 객체형태의값을 중복없이 저장하려고 할때 유용.
+ - 참조를 가지고있는 객체만 저장가능. .add()시 직접값을 넣으면 오류남.
+ - weakSet에 객체를 저장하고 후에 저장된 값중에 하나가 null이 되면 그 값은 weakset에서 없어짐.
+   디버깅창에 보이기는 하나 .has()메서드로 찾아보면 false로 나옴.
+   let arr = [1,2,3];
+   let arr2 = [4,5,6];
+   let obj = {arr, arr2};
+   let ws = new WeakSet();
+   ws.add(arr);
+   ws.add(arr2);
+   ws.add(obj);
+
+   arr = null;  // arr값을 없애버리면 ws에서 사라짐.
+   ws.has(arr)  // false
+
+* Map & WeakMap (key/value구조)
+ - js자료구조를 좀 더 개선한 형태
+   // Array -> Set, WeakSet
+   // Object -> Map, WeakMap
+ - 중복없이 Object타입값을 저장하고자 할때 유용. Set과 거의 같은 기능.
+ - key와 value에는 뭐든 들어갈 수 있음.
+ - .delete(), .get(), has(), set() 메서드가 있음.
+    var wm1 = new WeakMap(),
+        wm2 = new WeakMap(),
+        wm3 = new WeakMap();
+    var o1 = {},
+        o2 = function(){},
+        o3 = window;
+
+    wm1.set(o1, 37);
+    wm1.set(o2, "azerty");
+    wm2.set(o1, o2); // 값은 무엇이든 될 수 있음, 객체 또는 함수 포함
+    wm2.set(o3, undefined);
+    wm2.set(wm1, wm2); // 키와 값은 어떤 객체든 될 수 있음. 심지어 WeakMap도!
+
+    wm1.get(o2); // "azerty"
+    wm2.get(o2); // undefined, wm2에 o2에 대한 키가 없기에
+    wm2.get(o3); // undefined, 이게 설정값이기에
+
+    wm1.has(o2); // true
+    wm2.has(o2); // false
+    wm2.has(o3); // true (값 자체가 'undefined'이더라도)
+
+
+* WeakMap을 이용한 인스턴스변수 보호
+ - private 변수 만들기
+ - class를 만들고 내부 property변수들이 this. 으로 그대로 사용할 수 있음.
+   이것을 WeakMap으로 전역에 만들고 값을 넣으면 가비지컬렉션도 되고 private하게 관리가 됨.
+
+  // 기본 클래스 형식-------------------------------------------------
+   function Area(h,w){
+     this.h = h;
+     this.w = w;
+   }
+   Area.prototype.getArea = function(){
+     return this.h * this.w;
+   };
+
+   let myArea = new Area(10, 20);
+   console.log(myArea.getArea());
+   //----------------------------------------------------------------
+
+   // WeakMap을 사용한 Class형식--------------------------------------
+   const wm = new WeakMap();
+
+   function Area(h,w){
+     wm.set(this, {h,w}); // h,w를 전역 wm에 this키로 숨겨놓음.
+   }
+   Area.prototype.getArea = function(){
+     let {h, w} = wm.get(this); // 위크맵의 this키에서 값을 뽑아 Destructuring형태의 변수값을 가져옴.
+     return h*w;
+   };
+
+   let myArea = new Area(10, 20);
+   console.log(myArea.getArea());
+   //----------------------------------------------------------------
+
+
+* 실습2 - 로또번호생성기
