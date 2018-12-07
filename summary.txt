@@ -169,3 +169,44 @@
 
 
 * 실습2 - 로또번호생성기
+ - study2.html
+
+
+* Template 처리
+ - "`" 로 템플릿 처리를 할 수 있음.
+ - "`"안에 ${} 기호를 써서 값을 넣을 수 있음.
+  const DATA = { aaa : 'aa11', bbb : 'bb22' };
+  let template = ` <div>welcome ${DATA.aaa} </div> `;
+
+* Tagged template literals
+ - function을 이용하여 태그를 조작할 수 있음.
+ - 함수이름은 아무거나 상관없음.
+ - 첫번째 인자는 템플릿배열, 두번째부터는 문자열내부 ${}값의 순서로 들어감.
+  const DATA = { aaa : 'aa11', bbb : 'bb22' };
+  function fn1( tags, aaa ){
+
+  }
+  let template = fn1` <div>welcome ${DATA.aaa} </div> `;
+
+
+* Arrow Function (화살표함수)
+ - 함수를 화살표로 단순화 가능
+  function(){} -----> () => {}
+  (param1, param2, …, paramN) => { statements }
+  (param1, param2, …, paramN) => expression
+  // 다음과 동일함:  => { return expression; }
+
+  // 매개변수가 하나뿐인 경우 괄호는 선택사항:
+  (singleParam) => { statements }
+  singleParam => { statements }
+
+  // 매개변수가 없는 함수는 괄호가 필요:
+  () => { statements }
+
+  // 객체를 리턴할때는 괄호를 사용
+  () => ({aaa:111})
+
+* Arrow Function 의 this
+
+
+

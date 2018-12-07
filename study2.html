@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="uft-8" />
+        <title>로또번호생성기</title>
+    </head>
+    <body>
+
+        
+        <script>
+// Set()객체 자료형과 Destructuring변수선언 방법으로 구현
+
+const SETTING = {
+    name : 'LUCKY LOTTO!'
+    ,count : 6
+    ,maxNumber : 45
+};
+
+function getLottoNumberSet( cnt, max ){
+    let min = 1; 
+    let _set = new Set();
+
+    while( _set.size < cnt ){
+         _set.add( Math.floor(Math.random() * max + min) );
+    }
+
+    return _set;
+}
+
+
+function ready(){
+   
+    let {count:cnt, maxNumber:max} = SETTING;
+    console.log( getLottoNumberSet(cnt, max) );
+
+    // 템플릿 처리 방법
+    const DATA = { aaa : 'aa11', bbb : 'bb22' };
+    let template = ` <div>welcome ${DATA.aaa} </div> `;
+    console.log(template);
+}
+
+document.addEventListener("DOMContentLoaded", ready);
+        </script>
+    </body>
+</html>
