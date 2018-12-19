@@ -1,0 +1,8 @@
+ES2015 module을 사용하기 위한 webpack, babel설치및 환경구성
+참조(https://beomi.github.io/2017/10/18/Setup-Babel-with-webpack/)
+
+
+* webpack, babel 프로젝트를 적용할 root 폴더를 생성.
+* 해당 폴더에서 npm초기화. npm init -y (-y는 모두 기본으로 셋팅한다는 의미)
+* babel 설치. npm install --save-dev babel-loader babel-core babel-preset-env
+* webpack-dev-server 설치. npm install --save-dev webpack webpack-dev-server
